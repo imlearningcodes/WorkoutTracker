@@ -1,0 +1,72 @@
+<div id="showView">
+    <div class="row mt-md-6">
+        <div class="col-md-8 mx-auto">
+            <div class="form-group">
+                <div id="inputDate" style="margin-left:33%;width: 100%;"><input type="date" id="datepicker" [(ngModel)]=trackDate><button class="btn btn-success" id='target' (click)=showChart()> get data</button></div>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 mx-auto">
+        <div class="chart-wrapper" style="margin-bottom: 7%;">
+            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+      </canvas>
+        </div>
+        <div class="text-left" id="column1" style="background-color:white;">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead style="text-align-last: center;" style="background-color: aqua;">
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Note</th>
+                            <th scope="col">Started On</th>
+                            <th scope="col">Ended On</th>
+                            <th scope="col">Comment</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-striped">
+                        <tr *ngFor='let w1 of workoutArray; index as i'>
+                            <td>{{w1.title}}</td>
+                            <td scope="row" *ngIf="w1.note.length<10"> {{w1.note}}</td>
+                            <td *ngIf="!(w1.note.length<10)"> {{w1.note | slice:0:10}}..<sub><button style="margin: 0px;padding: 0px;" class="btn btn-link btn-xs"
+                  (click)=show(w1.note)>Read More</button></sub>
+                            </td>
+                            <td>{{w1.startDateTime | date}}</td>
+                            <td>{{w1.endDateTime | date}}</td>
+                            <td *ngIf="((w1.comment==undefined) || w1.comment.length<10)"> {{w1.comment}}</td>
+                            <td *ngIf="!((w1.comment==undefined) || w1.comment.length<10)"> {{w1.comment | slice:0:10}}..<sub><button
+                  class="btn btn-link btn-xs" (click)=show(w1.comment)>Read More</button></sub>
+                            </td>
+                            <td>{{w1.category}}</td>
+                            <td><button style="margin: 0;padding: 0;height: 0px;inline-size: 0%;" (click)='deleteWorkout(w1.id)' onMouseOver="this.style.color='#FF0000'" onMouseOut="this.style.color='#337ab7'" type="button" class="btn btn-link  "> <span>
+                  <i class="fas fa-trash"></i>
+                </span> </button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+                <br />
+            </div>
+            <div id='showmore'>
+                <span style="display:none" class="btn btn-link btn-lg" data-toggle="modal" data-target="#myModal" id='synopsisButton'>...</span>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 style="float: left;" class="modal-title"></h4>
+                            </div>
+                            <div class="modal-body" id='showSynopsis'>
+                                <p></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

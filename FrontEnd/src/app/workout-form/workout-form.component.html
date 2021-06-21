@@ -1,0 +1,36 @@
+<div class="form-group">
+    <input type="text" id="title" class="form-control" required maxlength="100" [(ngModel)]=workout.title>
+    <label class="form-control-placeholder" for="title">Title</label>
+    <span style="font-size: x-small; color:darkslategray; align-content:flex-end;"><em>&nbsp;&nbsp;</em><span
+      *ngIf="!(workout.title.length<3)">{{100-workout.title.length}} Characters left</span><span style="color:red" *ngIf="!(workout.title.length>=3)">Minimum 3 characters required</span>
+    </span>
+</div>
+<div class="form-group">
+    <textarea type="note" id="note" class="form-control" required maxlength="500" [(ngModel)]=workout.note></textarea>
+    <label class="form-control-placeholder" for="note">Note</label>
+    <span style="font-size: x-small; color:darkslategray; align-content:flex-end;"><em>&nbsp;&nbsp;</em>
+    <span *ngIf="workout.note.length>4">{{500-workout.note.length}} Characters left </span><span style="color:red" *ngIf="!(workout.note.length>=5)">Minimum 5 characters required</span></span>
+</div>
+<div class="form-group">
+    <div class="d-flex justify-content-left">
+        <input type="number" class="form-control" id="inputCalories" required max=100 min=0.1 step=0.1 [(ngModel)]=workout.caloriesBurnt>
+
+        <label class="form-control-placeholder" for="inputCalories">Calories</label>
+        <button (click)='caloriesPlusMinus(1)' type="button" class="btn btn-link" style="padding: 1%;margin: 0px;"><i
+        class='fas fa-plus'></i>
+    </button>
+        <button (click)='caloriesPlusMinus(-1)' type="button" class="btn btn-link" style="padding: 1%;margin: 0px;"><i
+        class="fa fa-minus"></i></button>
+    </div>
+    <span style="font-size: x-small; color:darkslategray; align-content:flex-end;"><em>&nbsp;&nbsp;</em>
+    <span style="color:red" *ngIf="workout.caloriesBurnt>=100">!00 is a Maximum Value </span><span style="color:red" *ngIf="(workout.caloriesBurnt<=0.1)">0.1 is Minimum Value</span></span>
+</div>
+<div class="form-group">
+    <select id="inputState" class="form-control" [(ngModel)]=workout.category>
+    <option *ngFor='let category of categories; index as i'>{{category.title}}</option>
+  </select>
+</div>
+<div class="form-group form-inline" style="margin: 0%;justify-content: center">
+    <button type="button" style="width: 40%;" class="btn btn-success" (click)='sendWorkout()'>{{parent.button}}</button>
+    <button type="button" style="width: 30%;" id="cancelUpdate" class="btn btn-info" (click)="sendWorkout1()">Cancel</button>
+</div>

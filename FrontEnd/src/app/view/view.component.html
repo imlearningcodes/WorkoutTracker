@@ -1,0 +1,53 @@
+<div id="showView">
+    <div class="row mt-md-4">
+        <div class="col-md-7 mx-auto">
+            <div class="form-group">
+                <input type="text" id="search" class="form-control" placeholder="Search Workout" [(ngModel)]="searchedKeyword">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7 mx-auto">
+        <div class="table-responsive">
+            <table class="table" *ngFor='let workout1 of workoutarray|filter:searchedKeyword; index as i'>
+                <tbody>
+                    <tr>
+                        <td id="text"><i>{{workout1.title}}</i><span style="float: right;" id="workoutStartShow" *ngIf="workout1.startDateTime">
+                <div style="float:right;font-size: 1em; ">
+                  <i class="fas fa-biking"> </i> <span style="color: red;"> <i class="fas fa-heartbeat"></i> </span>
+                            <small> Started at {{workout1.startDateTime | date:'mediumTime'}}</small>
+        </div>
+        </span>
+        </td>
+        </tr>
+        <tr>
+            <div class="d-flex justify-content-left" *ngIf="!workout1.startDateTime">
+                <button type="button" id="btn1" class="btn btn-success" (click)=startClick(workout1,i)><i
+                  class="fas fa-play"></i> Start</button>
+                <button type="button" id="btn2" class="btn btn-warning" style="cursor:not-allowed" disabled (click)=endClick(workout1)>End</button>
+                <button type="button" id="btn3" class="btn btn-danger" (click)=deleteClick(workout1.id,i)> <i
+                  class="fas fa-trash-alt"></i> Delete</button>
+                <button type="button" id="btn4" class="btn btn-primary" (click)=editClick(workout1)><i
+                  class="fas fa-pencil-alt"></i> Edit</button>
+            </div>
+            <div class="d-flex justify-content-left" *ngIf="workout1.startDateTime">
+                <button type="button" id="btn1" class="btn btn-success" style="cursor:not-allowed" disabled (click)=startClick(workout1,i)>Start</button>
+                <button type="button" id="btn2" class="btn btn-warning" (click)=endClick(workout1)><i
+                  class="fas fa-stop"></i> End</button>
+                <button type="button" id="btn3" class="btn btn-danger" style="cursor:not-allowed" disabled (click)=deleteClick(workout1)>Delete</button>
+                <button type="button" id="btn4" class="btn btn-primary" style="cursor:not-allowed" disabled (click)=editClick(workout1)>Edit</button>
+            </div>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<div id="showUpdate" style="display:none">
+    <app-update-workout (workoutSuccess)="workoutSuccess()" [workout]="workout"></app-update-workout>
+</div>
+<div id="showStart" style="display:none">
+    <app-start-workout (workoutSuccess)="workoutSuccess()" [workout]="workout"></app-start-workout>
+</div>
+<div id="showEnd" style="display:none">
+    <app-end-workout (workoutSuccess)="workoutSuccess()" [workout]="workout"></app-end-workout>
+</div>

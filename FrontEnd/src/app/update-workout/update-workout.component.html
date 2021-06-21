@@ -1,0 +1,15 @@
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="display-4" style="font-size: 3em;">Update Workout
+                <div style="float:right;font-size: 1em; ">
+                    <i class="fas fa-biking"></i><span style="color: red;"> <i class="fas fa-heartbeat"></i></span>
+                </div>
+            </div>
+            <br />
+            <br /><br />
+            <app-workout-form (successHandler1)="successHandler($event)" (sendWorkouParentt)="putWorkout($event)" [workout]="workout" [parent]="parent">
+            </app-workout-form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="form-group">
+                <label><strong>Title</strong></label>
+                <input type="text" id="title" class="form-control" maxlength="100" readonly [(ngModel)]=workout.title>
+            </div>
+            <div class="form-group">
+                <label><strong>Comment</strong></label>
+                <textarea type="note" id="note" class="form-control" required maxlength="500" [(ngModel)]=workout.comment></textarea>
+                <span style="font-size: x-small; color:darkslategray; align-content:flex-end;"><em>&nbsp;&nbsp;</em><span
+                        *ngIf="workout.comment">{{500-workout.comment.length}}</span> Characters left</span>
+            </div>
+            <div class="form-group">
+                <label><strong>Enter End Date and Time:</strong></label>
+                <input type="datetime-local" class="form-control" id="inputstartdate" placeholder="Start Date" [(ngModel)]=workout.endDateTime>
+            </div>
+            <div class="form-group form-inline" style="margin: 4%;justify-content: center">
+                <button type="button" id="btn1" class="btn btn-success" (click)='putWorkout()'> End</button>&nbsp;&nbsp;
+                <button type="button" id="btn2" class="btn btn-danger" (click)="successHandler('1')"> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
